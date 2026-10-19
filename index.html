@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Geodeta Zdalny D Z Ż</title>
+  <meta name="description" content="Profesjonalne usługi geodezyjne: mapy do celów projektowych, podziały działek, wytyczenia budynków, inwentaryzacje powykonawcze." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="#" class="logo">Geodeta Zdalny<span> D Z Ż</span></a>
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
+      <nav class="nav">
+        <a href="#uslugi">Usługi</a>
+        <a href="#o-mnie">O mnie</a>
+        <a href="#kontakt" class="btn btn--small">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Precyzyjne usługi geodezyjne</h1>
+        <p>Mapy do celów projektowych, podziały nieruchomości, wytyczenia i inwentaryzacje – szybko, rzetelnie i zgodnie z przepisami.</p>
+        <a href="#kontakt" class="btn">Zapytaj o wycenę</a>
+      </div>
+    </section>
+
+    <section id="uslugi" class="section">
+      <div class="container">
+        <h2>Usługi</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Mapy do celów projektowych</h3>
+            <p>Aktualne mapy sytuacyjno-wysokościowe niezbędne do uzyskania pozwolenia na budowę.</p>
+          </article>
+          <article class="card">
+            <h3>Wytyczenie budynków</h3>
+            <p>Tyczenie obiektów budowlanych zgodnie z projektem zagospodarowania terenu.</p>
+          </article>
+          <article class="card">
+            <h3>Inwentaryzacja powykonawcza</h3>
+            <p>Geodezyjna inwentaryzacja budynków i przyłączy po zakończeniu budowy.</p>
+          </article>
+          <article class="card">
+            <h3>Podziały nieruchomości</h3>
+            <p>Kompleksowa obsługa podziałów działek wraz z dokumentacją do urzędu.</p>
+          </article>
+          <article class="card">
+            <h3>Wznowienie granic</h3>
+            <p>Wznowienie znaków granicznych i ustalenie przebiegu granic działek.</p>
+          </article>
+          <article class="card">
+            <h3>Pomiary GPS / RTK</h3>
+            <p>Szybkie i dokładne pomiary z wykorzystaniem nowoczesnego sprzętu GNSS.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="o-mnie" class="section section--alt">
+      <div class="container about">
+        <div>
+          <h2>O mnie</h2>
+          <p>Jestem geodetą uprawnionym z ponad 15-letnim doświadczeniem. Obsługuję klientów indywidualnych, deweloperów oraz firmy budowlane.</p>
+          <ul class="checklist">
+            <li>Uprawnienia zawodowe w zakresie 1 i 2</li>
+            <li>Nowoczesny sprzęt pomiarowy</li>
+            <li>Krótkie terminy realizacji</li>
+          </ul>
+        </div>
+        <div class="contact-info">
+          <h3>Dane kontaktowe</h3>
+          <p>tel. <a href="tel:+48600000000">+48 600 000 000</a></p>
+          <p>e-mail: <a href="mailto:pgiercza@gmail.com">pgiercza@gmail.com</a></p>
+          <p>ul. Przykładowa 1, 00-000 Miasto</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section">
+      <div class="container container--narrow">
+        <h2>Formularz kontaktowy</h2>
+        <p class="lead">Opisz zlecenie – odpowiem najszybciej jak to możliwe.</p>
+
+        <form id="contact-form" class="form" action="https://formsubmit.co/pgiercza@gmail.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Nowe zapytanie ze strony geodety" />
+          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
+
+          <div class="form__row">
+            <label for="name">Imię i nazwisko *</label>
+            <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" />
+          </div>
+          <div class="form__grid">
+            <div class="form__row">
+              <label for="email">E-mail *</label>
+              <input id="email" name="_replyto" type="email" required maxlength="150" autocomplete="email" />
+            </div>
+            <div class="form__row">
+              <label for="phone">Telefon</label>
+              <input id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" pattern="[0-9 +()\-]{7,20}" />
+            </div>
+          </div>
+          <div class="form__row">
+            <label for="service">Rodzaj usługi</label>
+            <select id="service" name="service">
+              <option>Mapa do celów projektowych</option>
+              <option>Wytyczenie budynku</option>
+              <option>Inwentaryzacja powykonawcza</option>
+              <option>Podział nieruchomości</option>
+              <option>Wznowienie granic</option>
+              <option>Inne</option>
+            </select>
+          </div>
+          <div class="form__row">
+            <label for="location">Lokalizacja (miejscowość / nr działki)</label>
+            <input id="location" name="location" type="text" maxlength="150" />
+          </div>
+          <div class="form__row">
+            <label for="message">Wiadomość *</label>
+            <textarea id="message" name="message" rows="5" required maxlength="3000"></textarea>
+          </div>
+          <div class="form__row form__row--checkbox">
+            <input id="consent" name="consent" type="checkbox" required value="Tak" />
+            <label for="consent">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu udzielenia odpowiedzi na zapytanie (RODO). *</label>
+          </div>
+
+          <button type="submit" class="btn">Wyślij zapytanie</button>
+          <p id="form-status" class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; <span id="year"></span> Geodeta Zdalny D Z Ż</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
