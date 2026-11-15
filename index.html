@@ -3,98 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Geodeta Zdalny D Z Ż</title>
-  <meta name="description" content="Profesjonalne usługi geodezyjne: mapy do celów projektowych, podziały działek, wytyczenia budynków, inwentaryzacje powykonawcze." />
+  <title>Geodeta Zdalny Damian Zapart – zdalne opracowania geodezyjne</title>
+  <meta name="description" content="Geodeta Zdalny Damian Zapart – zdalne prace kameralne: operaty geodezyjne, pliki wsadowe GML/KCD/GIV, mapy do celów projektowych, inwentaryzacje powykonawcze, mapy z projektem podziału." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-  <header class="header">
+<body class="is-loading">
+
+  <!-- Intro -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro__scope">
+      <svg viewBox="0 0 200 200" class="intro__reticle">
+        <circle cx="100" cy="100" r="80" />
+        <circle cx="100" cy="100" r="50" />
+        <line x1="100" y1="5" x2="100" y2="195" />
+        <line x1="5" y1="100" x2="195" y2="100" />
+        <circle cx="100" cy="100" r="4" class="dot" />
+      </svg>
+      <div class="intro__coords mono">
+        <div>X: <span id="introX">0000000.00</span></div>
+        <div>Y: <span id="introY">0000000.00</span></div>
+      </div>
+      <div class="intro__label">Geodeta Zdalny</div>
+    </div>
+    <div class="intro__curtain intro__curtain--top"></div>
+    <div class="intro__curtain intro__curtain--bottom"></div>
+  </div>
+
+  <div class="progress" id="progress"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <header class="header" id="header">
     <div class="container header__inner">
-      <a href="#" class="logo">Geodeta Zdalny<span> D Z Ż</span></a>
+      <a href="#top" class="logo"><span class="logo__mark">&#8853;</span> Geodeta Zdalny<span class="logo__sub">Damian Zapart</span></a>
       <button class="nav-toggle" aria-label="Menu" aria-expanded="false">&#9776;</button>
       <nav class="nav">
-        <a href="#uslugi">Usługi</a>
         <a href="#o-mnie">O mnie</a>
+        <a href="#uslugi">Usługi</a>
+        <a href="#realizacje">Realizacje</a>
         <a href="#kontakt" class="btn btn--small">Kontakt</a>
       </nav>
     </div>
   </header>
 
-  <main>
+  <main id="top">
     <section class="hero">
-      <div class="container">
-        <h1>Precyzyjne usługi geodezyjne</h1>
-        <p>Mapy do celów projektowych, podziały nieruchomości, wytyczenia i inwentaryzacje – szybko, rzetelnie i zgodnie z przepisami.</p>
-        <a href="#kontakt" class="btn">Zapytaj o wycenę</a>
-      </div>
-    </section>
-
-    <section id="uslugi" class="section">
-      <div class="container">
-        <h2>Usługi</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Mapy do celów projektowych</h3>
-            <p>Aktualne mapy sytuacyjno-wysokościowe niezbędne do uzyskania pozwolenia na budowę.</p>
-          </article>
-          <article class="card">
-            <h3>Wytyczenie budynków</h3>
-            <p>Tyczenie obiektów budowlanych zgodnie z projektem zagospodarowania terenu.</p>
-          </article>
-          <article class="card">
-            <h3>Inwentaryzacja powykonawcza</h3>
-            <p>Geodezyjna inwentaryzacja budynków i przyłączy po zakończeniu budowy.</p>
-          </article>
-          <article class="card">
-            <h3>Podziały nieruchomości</h3>
-            <p>Kompleksowa obsługa podziałów działek wraz z dokumentacją do urzędu.</p>
-          </article>
-          <article class="card">
-            <h3>Wznowienie granic</h3>
-            <p>Wznowienie znaków granicznych i ustalenie przebiegu granic działek.</p>
-          </article>
-          <article class="card">
-            <h3>Pomiary GPS / RTK</h3>
-            <p>Szybkie i dokładne pomiary z wykorzystaniem nowoczesnego sprzętu GNSS.</p>
-          </article>
+      <canvas id="contours" class="hero__canvas"></canvas>
+      <div class="hero__crosshair mono" id="crosshair"><span id="chX"></span><span id="chY"></span></div>
+      <div class="partners reveal-hero">
+        <p class="partners__label mono">Zaufali mi:</p>
+        <div class="marquee">
+          <div class="marquee__track">
+            <span>POMIAR – Usługi Geodezyjne Siepraw</span><span>Geodezja HARY</span><span>AZYMUT PRO Sp. z o.o.</span><span>Geo-Zet Sp. z o.o.</span><span>GEOPLAN Sp. J. Gorzów Wlkp.</span><span>ATD Sp. z o.o. Geodezja Łódź</span>
+            <span aria-hidden="true">POMIAR – Usługi Geodezyjne Siepraw</span><span aria-hidden="true">Geodezja HARY</span><span aria-hidden="true">AZYMUT PRO Sp. z o.o.</span><span aria-hidden="true">Geo-Zet Sp. z o.o.</span><span aria-hidden="true">GEOPLAN Sp. J. Gorzów Wlkp.</span><span aria-hidden="true">ATD Sp. z o.o. Geodezja Łódź</span>
+          </div>
         </div>
       </div>
+      <div class="container hero__content">
+        <h1 class="hero__title">
+          <span class="split">Precyzja geodezji.</span><br />
+          <span class="split split--accent">Zero kilometrów.</span>
+        </h1>
+        <p class="hero__lead reveal-hero">Zdalne opracowania kameralne dla firm geodezyjnych z całej Polski:
+          <span class="typer mono" id="typer"></span><span class="typer__caret">|</span></p>
+        <div class="hero__actions reveal-hero">
+          <a href="#kontakt" class="btn btn--accent magnetic">Zleć opracowanie</a>
+          <a href="#realizacje" class="btn btn--ghost magnetic">Zobacz realizacje</a>
+        </div>
+      </div>
+      <div class="stats">
+      <div class="container stats__grid">
+        <div class="stat reveal"><span class="stat__num" data-count="6">0</span><span class="stat__plus">+</span><p>firm geodezyjnych współpracuje oficjalnie</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="5">0</span><p>programów geodezyjnych na poziomie zaawansowanym</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="6">0</span><p>formatów: GML, KCD, GIV, PDF, DXF, DWG</p></div>
+        <div class="stat reveal"><span class="stat__num" data-count="100">0</span><span class="stat__plus">%</span><p>pracy zdalnej – cała Polska</p></div>
+      </div>
+      </div>
     </section>
 
-    <section id="o-mnie" class="section section--alt">
+    <section id="o-mnie" class="section">
       <div class="container about">
-        <div>
-          <h2>O mnie</h2>
-          <p>Jestem geodetą uprawnionym z ponad 15-letnim doświadczeniem. Obsługuję klientów indywidualnych, deweloperów oraz firmy budowlane.</p>
+        <div class="reveal">
+          <p class="section__eyebrow mono">01 / O mnie</p>
+          <h2>Damian Zapart</h2>
+          <p>Zdalnie współpracuję z kilkoma firmami geodezyjnymi jako podwykonawca prac biurowych i kameralnych. Przejmuję czasochłonną część opracowania – od operatu, przez pliki wsadowe, po mapę wynikową – tak, aby Twoja ekipa mogła skupić się na pomiarach w terenie.</p>
           <ul class="checklist">
-            <li>Uprawnienia zawodowe w zakresie 1 i 2</li>
-            <li>Nowoczesny sprzęt pomiarowy</li>
-            <li>Krótkie terminy realizacji</li>
+            <li>Operaty i pliki wsadowe dla ośrodków w całej Polsce</li>
+            <li>Mapy wynikowe w PDF, DXF i DWG</li>
+            <li>Zaawansowana znajomość TurboMap, GEO-INFO Delta, EWMAPA FB, Mikromapa, Winkalk</li>
+            <li>Elastyczna współpraca – jednorazowo lub stale</li>
           </ul>
         </div>
-        <div class="contact-info">
-          <h3>Dane kontaktowe</h3>
-          <p>tel. <a href="tel:+48600000000">+48 600 000 000</a></p>
-          <p>e-mail: <a href="mailto:pgiercza@gmail.com">pgiercza@gmail.com</a></p>
-          <p>ul. Przykładowa 1, 00-000 Miasto</p>
+        <aside class="contact-card tilt reveal">
+          <h3>Geodeta Zdalny Damian Zapart</h3>
+          <p>Spacerowa 7, 26-330 Żarnów</p>
+          <p class="mono small">NIP: 768-185-79-68<br />REGON: 544753468</p>
+          <p>tel. <a href="tel:+48725649132">725 649 132</a></p>
+          <p>e-mail: <a href="mailto:geodetazdalny@wp.pl">geodetazdalny@wp.pl</a></p>
+          <button class="btn btn--small btn--ghost-dark" id="copyEmail" type="button">Kopiuj e-mail</button>
+        </aside>
+      </div>
+    </section>
+
+    <section id="uslugi" class="section section--alt">
+      <div class="container">
+        <p class="section__eyebrow mono reveal">02 / Usługi i warsztat</p>
+        <h2 class="reveal">Co robię dla Twojej firmy</h2>
+        <div class="offer">
+          <div class="services">
+            <article class="svc tilt reveal"><span class="svc__icon">&#128203;</span><div><h3>Operaty geodezyjne</h3><p>Kompletowanie i składanie operatów technicznych do ośrodków.</p></div></article>
+            <article class="svc tilt reveal"><span class="svc__icon">&#128190;</span><div><h3>Pliki wsadowe</h3><p>Pliki do ośrodków w formatach .gml, .kcd, .giv.</p></div></article>
+            <article class="svc tilt reveal"><span class="svc__icon">&#128506;</span><div><h3>Mapy do celów projektowych</h3><p>Mapy sytuacyjno-wysokościowe na podstawie pomiaru i zasobu.</p></div></article>
+            <article class="svc tilt reveal"><span class="svc__icon">&#127959;</span><div><h3>Inwentaryzacja powykonawcza</h3><p>Mapy z inwentaryzacji obiektów budowlanych i sieci uzbrojenia.</p></div></article>
+            <article class="svc tilt reveal"><span class="svc__icon">&#9986;</span><div><h3>Mapy z projektem podziału</h3><p>Projekty podziału nieruchomości wraz z dokumentacją.</p></div></article>
+            <article class="svc tilt reveal"><span class="svc__icon">&#128228;</span><div><h3>Formaty wynikowe</h3><p>Mapy w PDF, DXF i DWG – gotowe do dalszej pracy.</p></div></article>
+          </div>
+
+          <aside class="toolkit reveal">
+            <p class="toolkit__title mono">Oprogramowanie <span>poziom zaawansowany</span></p>
+            <ul class="tools">
+              <li class="tool"><span class="tool__badge">TM</span><b>TurboMap</b></li>
+              <li class="tool"><span class="tool__badge">GI</span><b>GEO-INFO Delta</b></li>
+              <li class="tool"><span class="tool__badge">EW</span><b>EWMAPA FB</b></li>
+              <li class="tool"><span class="tool__badge">MM</span><b>Mikromapa</b></li>
+              <li class="tool"><span class="tool__badge">WK</span><b>Winkalk</b></li>
+            </ul>
+            <div class="formats"><span class="formats__lbl mono">wsad</span><span class="chip">.gml</span><span class="chip">.kcd</span><span class="chip">.giv</span></div>
+            <div class="formats"><span class="formats__lbl mono">wynik</span><span class="chip chip--alt">.pdf</span><span class="chip chip--alt">.dxf</span><span class="chip chip--alt">.dwg</span></div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <section id="kontakt" class="section">
-      <div class="container container--narrow">
-        <h2>Formularz kontaktowy</h2>
-        <p class="lead">Opisz zlecenie – odpowiem najszybciej jak to możliwe.</p>
+    <section id="realizacje" class="section section--dark">
+      <div class="container">
+        <p class="section__eyebrow mono reveal">03 / Realizacje</p>
+        <h2 class="reveal">Wybrane opracowania</h2>
+        <div class="filters reveal" role="tablist">
+          <button class="filter is-active" data-filter="all">Wszystkie</button>
+          <button class="filter" data-filter="mdcp">Mapy do celów projektowych</button>
+          <button class="filter" data-filter="podzial">Projekty podziału</button>
+        </div>
 
-        <form id="contact-form" class="form" action="https://formsubmit.co/pgiercza@gmail.com" method="POST" novalidate>
-          <input type="hidden" name="_subject" value="Nowe zapytanie ze strony geodety" />
+        <div class="gallery">
+          <figure class="shot reveal" data-cat="mdcp">
+            <img src="img/mapa-projektowa-1.jpg" alt="Fragment mapy do celów projektowych – zabudowa zagrodowa" loading="lazy" />
+            <figcaption><b>Mapa do celów projektowych</b><span>pow. tomaszowski &middot; skala 1:500</span></figcaption>
+          </figure>
+          <figure class="shot reveal" data-cat="mdcp">
+            <img src="img/mapa-projektowa-2.jpg" alt="Fragment mapy do celów projektowych – teren miejski z uzbrojeniem" loading="lazy" />
+            <figcaption><b>Mapa do celów projektowych</b><span>pow. opoczyński &middot; skala 1:500</span></figcaption>
+          </figure>
+          <figure class="shot reveal" data-cat="podzial">
+            <img src="img/projekt-podzialu.jpg" alt="Fragment mapy z projektem podziału nieruchomości rolnej" loading="lazy" />
+            <figcaption><b>Mapa z projektem podziału</b><span>nieruchomość rolna &middot; skala 1:2000</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontakt" class="section section--alt">
+      <div class="container container--narrow">
+        <p class="section__eyebrow mono reveal">04 / Kontakt</p>
+        <h2 class="reveal">Formularz kontaktowy</h2>
+        <p class="lead reveal">Opisz zlecenie – odpowiem najszybciej jak to możliwe.</p>
+
+        <form id="contact-form" class="form reveal" action="https://formsubmit.co/geodetazdalny@wp.pl" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Nowe zapytanie ze strony Geodeta Zdalny" />
           <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" />
 
-          <div class="form__row">
-            <label for="name">Imię i nazwisko *</label>
-            <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" />
-          </div>
           <div class="form__grid">
+            <div class="form__row">
+              <label for="name">Imię i nazwisko / firma *</label>
+              <input id="name" name="name" type="text" required maxlength="100" autocomplete="name" />
+            </div>
             <div class="form__row">
               <label for="email">E-mail *</label>
               <input id="email" name="_replyto" type="email" required maxlength="150" autocomplete="email" />
@@ -103,32 +187,29 @@
               <label for="phone">Telefon</label>
               <input id="phone" name="phone" type="tel" maxlength="20" autocomplete="tel" pattern="[0-9 +()\-]{7,20}" />
             </div>
-          </div>
-          <div class="form__row">
-            <label for="service">Rodzaj usługi</label>
-            <select id="service" name="service">
-              <option>Mapa do celów projektowych</option>
-              <option>Wytyczenie budynku</option>
-              <option>Inwentaryzacja powykonawcza</option>
-              <option>Podział nieruchomości</option>
-              <option>Wznowienie granic</option>
-              <option>Inne</option>
-            </select>
-          </div>
-          <div class="form__row">
-            <label for="location">Lokalizacja (miejscowość / nr działki)</label>
-            <input id="location" name="location" type="text" maxlength="150" />
+            <div class="form__row">
+              <label for="service">Rodzaj usługi</label>
+              <select id="service" name="service">
+                <option>Operat geodezyjny</option>
+                <option>Pliki wsadowe (GML / KCD / GIV)</option>
+                <option>Mapa do celów projektowych</option>
+                <option>Inwentaryzacja powykonawcza</option>
+                <option>Mapa z projektem podziału</option>
+                <option>Stała współpraca</option>
+                <option>Inne</option>
+              </select>
+            </div>
           </div>
           <div class="form__row">
             <label for="message">Wiadomość *</label>
-            <textarea id="message" name="message" rows="5" required maxlength="3000"></textarea>
+            <textarea id="message" name="message" rows="4" required maxlength="3000"></textarea>
           </div>
           <div class="form__row form__row--checkbox">
             <input id="consent" name="consent" type="checkbox" required value="Tak" />
             <label for="consent">Wyrażam zgodę na przetwarzanie moich danych osobowych w celu udzielenia odpowiedzi na zapytanie (RODO). *</label>
           </div>
 
-          <button type="submit" class="btn">Wyślij zapytanie</button>
+          <button type="submit" class="btn btn--accent">Wyślij zapytanie</button>
           <p id="form-status" class="form__status" role="status" aria-live="polite"></p>
         </form>
       </div>
@@ -136,10 +217,17 @@
   </main>
 
   <footer class="footer">
-    <div class="container">
-      <p>&copy; <span id="year"></span> Geodeta Zdalny D Z Ż</p>
+    <div class="container footer__inner">
+      <p>&copy; <span id="year"></span> Geodeta Zdalny Damian Zapart &middot; NIP 7681857968</p>
+      <a href="#top" class="to-top" aria-label="Do góry">&#8593;</a>
     </div>
   </footer>
+
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" aria-label="Zamknij">&times;</button>
+    <img alt="" />
+    <p class="lightbox__cap"></p>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
